@@ -1,24 +1,4 @@
-<template>
-<div class="wrapper">
-  <!-- header -->
-  <div class="wrapper-content">
-    <div class="view">
-      <div class="container">
-        <Form @onSubmit="handleSubmit" />
-        <List :items = "items"/>
-      </div>
-    </div>
-  </div>
-  <!-- footer -->
-</div>
-</template>
-
-<script>
-import Form from '@/components/Form'
-import List from '@/components/List'
-
-export default {
-  components: { Form, List },
+const app = {
   data() {
     return {
       items: [
@@ -40,9 +20,18 @@ export default {
     }
   },
   methods: {
-    handleSubmit(item) {
-      this.items.push(item);
+    onSubmit() {
+      this.items.push({
+        id: Math.round(Math.random() * 30),
+        avatar: `https://avatars.dicebear.com/api/male/${Date.now()}.svg`,
+        body: this.item,
+        date: new Date(Date.now()).toLocaleString(),
+      });
+      
+      //reset item
+      this.item = "";
     }
-  }
-}
-</script>
+  },
+};
+
+Vue.createApp(app).mount('#app');
